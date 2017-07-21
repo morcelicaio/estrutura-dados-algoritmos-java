@@ -25,7 +25,8 @@ public class Exer06 {
 		
 		Pilha<Character> pilha = new Pilha<Character>();
 		int index = 0;
-		char simbolo, topo;
+		char simbolo, topo; // casos ñ balanceados como (((( estavam retornando true. A variável controle corrige isso.
+		int controle = 0;     // Irá validar casos em que apenas foram abertos as chaves ou parenteses.
 		
 		while (index < expressao.length()){
 			simbolo = expressao.charAt(index);
@@ -39,6 +40,7 @@ public class Exer06 {
 					return false;
 				} else {
 					topo = pilha.desempilha();
+					controle++;
 					
 					if (ABRE.indexOf(topo) != FECHA.indexOf(simbolo)){
 						return false;
@@ -47,6 +49,10 @@ public class Exer06 {
 			}
 			
 			index++;
+		}
+		
+		if(controle == 0){     // faz a validação em entradas tipo  '((('  onde só são abertas as chaves.
+		    return false;
 		}
 		
 		return true;
